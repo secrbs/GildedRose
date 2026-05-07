@@ -1,0 +1,13 @@
+# NuGet packages
+packages/
+
+# Visual Studio
+.vs/
+*.user
+x64/
+Debug/
+Release/
+
+# Coverage
+Coverage/
+LastCoverageResults.log
