@@ -1,84 +1,64 @@
 #include "gilded_rose.h"
+#include <algorithm>
 
 using std::vector;
 using std::string;
 
-GildedRose::GildedRose(vector<Item>& items) : items(items) 
+static const string AGED_BRIE      = "Aged Brie";
+static const string SULFURAS       = "Sulfuras, Hand of Ragnaros";
+static const string BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert";
+
+static void increaseQuality(Item& item, int amount = 1)
+{
+    item.quality = std::min(item.quality + amount, 50);
+}
+
+static void decreaseQuality(Item& item, int amount = 1)
+{
+    item.quality = std::max(item.quality - amount, 0);
+}
+
+static void updateNormalItem(Item& item)
+{
+    item.sellIn -= 1;
+    decreaseQuality(item, item.sellIn < 0 ? 2 : 1);
+}
+
+static void updateAgedBrie(Item& item)
+{
+    item.sellIn -= 1;
+    increaseQuality(item, item.sellIn < 0 ? 2 : 1);
+}
+
+static void updateSulfuras(Item& /*item*/)
+{
+    // sellIn, quality 모두 변화 없음
+}
+
+static void updateBackstagePass(Item& item)
+{
+    item.sellIn -= 1;
+    if (item.sellIn < 0)
+    {
+        item.quality = 0;
+        return;
+    }
+    if      (item.sellIn < 5)  increaseQuality(item, 3);
+    else if (item.sellIn < 10) increaseQuality(item, 2);
+    else                       increaseQuality(item, 1);
+}
+
+GildedRose::GildedRose(vector<Item>& items) : items(items)
 {
 }
 
 void GildedRose::updateQuality()
 {
-    for (int i = 0; i < items.size(); i++)
+    for (auto& item : items)
     {
-        if (items[i].name != "Aged Brie" && items[i].name != "Backstage passes to a TAFKAL80ETC concert")
-        {
-            if (items[i].quality > 0)
-            {
-                if (items[i].name != "Sulfuras, Hand of Ragnaros")
-                {
-                    items[i].quality = items[i].quality - 1;
-                }
-            }
-        }
-        else
-        {
-            if (items[i].quality < 50)
-            {
-                items[i].quality = items[i].quality + 1;
-
-                if (items[i].name == "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    if (items[i].sellIn < 11)
-                    {
-                        if (items[i].quality < 50)
-                        {
-                            items[i].quality = items[i].quality + 1;
-                        }
-                    }
-
-                    if (items[i].sellIn < 6)
-                    {
-                        if (items[i].quality < 50)
-                        {
-                            items[i].quality = items[i].quality + 1;
-                        }
-                    }
-                }
-            }
-        }
-
-        if (items[i].name != "Sulfuras, Hand of Ragnaros")
-        {
-            items[i].sellIn = items[i].sellIn - 1;
-        }
-
-        if (items[i].sellIn < 0)
-        {
-            if (items[i].name != "Aged Brie")
-            {
-                if (items[i].name != "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    if (items[i].quality > 0)
-                    {
-                        if (items[i].name != "Sulfuras, Hand of Ragnaros")
-                        {
-                            items[i].quality = items[i].quality - 1;
-                        }
-                    }
-                }
-                else
-                {
-                    items[i].quality = items[i].quality - items[i].quality;
-                }
-            }
-            else
-            {
-                if (items[i].quality < 50)
-                {
-                    items[i].quality = items[i].quality + 1;
-                }
-            }
-        }
+        if      (item.name == SULFURAS)       updateSulfuras(item);
+        else if (item.name == AGED_BRIE)      updateAgedBrie(item);
+        else if (item.name == BACKSTAGE_PASS) updateBackstagePass(item);
+        else                                  updateNormalItem(item);
     }
 }
