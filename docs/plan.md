@@ -1,5 +1,7 @@
 # Gilded Rose C++ Refactoring Plan
 
+**상태: 완료 (Phase 3까지)**
+
 ## 현황
 
 - `gilded_rose.cpp`의 `updateQuality()`는 깊은 중첩 if-else 단일 메서드로 구현됨

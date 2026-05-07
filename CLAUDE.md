@@ -61,7 +61,7 @@ OpenCppCoverage.exe --sources cpp\*.cpp --export_type=html:Coverage -- .\x64\Deb
 2. **플랜 작성** — `docs/plan.md`에 Phase별 계획 작성
 3. **CLAUDE.md 반영** — 진행 중인 플랜 파일 경로를 CLAUDE.md `진행 대상 플랜` 항목에 추가
 4. **각 Phase 작업** — 아래 Phase 작업 절차에 따라 진행
-5. **개발 완료 확인** — 사람이 완료를 확인하면 CLAUDE.md `진행 대상 플랜` 항목에서 해당 경로 제거
+5. **개발 완료 확인** — 사람이 완료를 확인하면 `plan.md`에 완료 표시
 6. **커밋 작성**
 
 ### Phase 작업 절차
@@ -72,6 +72,10 @@ OpenCppCoverage.exe --sources cpp\*.cpp --export_type=html:Coverage -- .\x64\Deb
 2. **사람이 Design 검토** — 검토 완료 후 구현 진행
 3. **구현** — Design 문서 기준으로 코드 작성, 빌드·테스트·커버리지 확인 후 커밋
 4. **사람이 코드 검토** — 검토 완료 후 다음 Phase로 이동
+
+## 진행 대상 플랜
+
+`docs/plan.md`
 
 ---
 
