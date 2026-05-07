@@ -32,6 +32,7 @@ static void updateAgedBrie(Item& item)
 
 static void updateSulfuras(Item& /*item*/)
 {
+    // sellIn, quality 모두 변화 없음
 }
 
 static void updateBackstagePass(Item& item)

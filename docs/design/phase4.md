@@ -1,5 +1,7 @@
 # Phase 4 Design — 분기 디스패치를 (predicate, updater) 테이블로 교체
 
+> **미구현**: Phase 3 완료 후 if-else dispatcher가 충분히 단순하다고 판단하여 진행하지 않음.
+
 ## 목표
 
 `updateQuality()`의 if-else 체인을 `(predicate, updater)` 쌍의 테이블로 교체한다.  

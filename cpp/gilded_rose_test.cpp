@@ -102,3 +102,27 @@ TEST(GildedRoseTest, BackstagePassesQualityDropsToZeroAfterConcert) {
     app.updateQuality();
     EXPECT_EQ(0, app.items[0].quality);
 }
+
+TEST(GildedRoseTest, BackstagePassesBoundaryAt6IsPlus2) {
+    vector<Item> items;
+    items.emplace_back("Backstage passes to a TAFKAL80ETC concert", 6, 20);
+    GildedRose app(items);
+    app.updateQuality();
+    EXPECT_EQ(22, app.items[0].quality);
+}
+
+TEST(GildedRoseTest, BackstagePassesBoundaryAt11IsPlus1) {
+    vector<Item> items;
+    items.emplace_back("Backstage passes to a TAFKAL80ETC concert", 11, 20);
+    GildedRose app(items);
+    app.updateQuality();
+    EXPECT_EQ(21, app.items[0].quality);
+}
+
+TEST(GildedRoseTest, BackstagePassesQualityCapAt50) {
+    vector<Item> items;
+    items.emplace_back("Backstage passes to a TAFKAL80ETC concert", 5, 49);
+    GildedRose app(items);
+    app.updateQuality();
+    EXPECT_EQ(50, app.items[0].quality);
+}
