@@ -86,7 +86,7 @@ static 함수는 모두 `.cpp` 내부에만 존재한다.
 - `sellIn == 0` (감소 전 기준): 만료 → 감소 후 `sellIn < 0` 과 동치
 
 새 함수에서는 **sellIn을 먼저 감소**시킨 뒤 경계를 판단하므로 위 동치 관계를 적용한다.  
-기존 테스트(`BackstagePassesQuality*` 3개)가 이를 검증한다.
+기존 테스트(`BackstagePassesQuality*` 5개)가 이를 검증한다.
 
 ---
 
