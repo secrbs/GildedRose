@@ -100,5 +100,5 @@ static 함수는 모두 `.cpp` 내부에만 존재한다.
 ## 검증 방법
 
 1. 빌드: `MSBuild.exe GildedRose.sln /p:Configuration=Debug`
-2. 테스트 전체 통과: `.\x64\Debug\GildedRose.exe` (12/12 PASSED)
+2. 테스트 전체 통과: `.\x64\Debug\GildedRose.exe` (15/15 PASSED)
 3. 커버리지 유지: `gilded_rose.cpp` 100% 확인

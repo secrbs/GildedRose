@@ -56,7 +56,7 @@ static void decreaseQuality(Item& item, int amount = 1);
 
 ---
 
-### Phase 3 — 아이템 타입별 private 메서드 추출
+### Phase 3 — 아이템 타입별 static 함수 추출
 
 **변경 범위:** `updateQuality()` 분해 → 4개의 파일 스코프 `static` 함수
 
