@@ -67,8 +67,8 @@ static void updateSulfuras(Item& item);
 static void updateBackstagePass(Item& item);
 ```
 
-`updateQuality()`는 아이템 이름으로 분기하여 각 메서드를 호출하는 디스패처로만 남긴다.  
-각 메서드는 Phase 2의 헬퍼를 사용하므로 단순하고 평탄한 구조가 된다.
+`updateQuality()`는 아이템 이름으로 분기하여 각 함수를 호출하는 디스패처로만 남긴다.  
+각 함수는 Phase 2의 헬퍼를 사용하므로 단순하고 평탄한 구조가 된다.
 
 ---
 
