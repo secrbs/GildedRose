@@ -1,4 +1,5 @@
 #include "gilded_rose.h"
+#include <algorithm>
 
 using std::vector;
 using std::string;
@@ -6,6 +7,16 @@ using std::string;
 static const string AGED_BRIE      = "Aged Brie";
 static const string SULFURAS       = "Sulfuras, Hand of Ragnaros";
 static const string BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert";
+
+static void increaseQuality(Item& item, int amount = 1)
+{
+    item.quality = std::min(item.quality + amount, 50);
+}
+
+static void decreaseQuality(Item& item, int amount = 1)
+{
+    item.quality = std::max(item.quality - amount, 0);
+}
 
 GildedRose::GildedRose(vector<Item>& items) : items(items)
 {
@@ -17,37 +28,25 @@ void GildedRose::updateQuality()
     {
         if (items[i].name != AGED_BRIE && items[i].name != BACKSTAGE_PASS)
         {
-            if (items[i].quality > 0)
+            if (items[i].name != SULFURAS)
             {
-                if (items[i].name != SULFURAS)
-                {
-                    items[i].quality = items[i].quality - 1;
-                }
+                decreaseQuality(items[i]);
             }
         }
         else
         {
-            if (items[i].quality < 50)
+            increaseQuality(items[i]);
+
+            if (items[i].name == BACKSTAGE_PASS)
             {
-                items[i].quality = items[i].quality + 1;
-
-                if (items[i].name == BACKSTAGE_PASS)
+                if (items[i].sellIn < 11)
                 {
-                    if (items[i].sellIn < 11)
-                    {
-                        if (items[i].quality < 50)
-                        {
-                            items[i].quality = items[i].quality + 1;
-                        }
-                    }
+                    increaseQuality(items[i]);
+                }
 
-                    if (items[i].sellIn < 6)
-                    {
-                        if (items[i].quality < 50)
-                        {
-                            items[i].quality = items[i].quality + 1;
-                        }
-                    }
+                if (items[i].sellIn < 6)
+                {
+                    increaseQuality(items[i]);
                 }
             }
         }
@@ -63,25 +62,19 @@ void GildedRose::updateQuality()
             {
                 if (items[i].name != BACKSTAGE_PASS)
                 {
-                    if (items[i].quality > 0)
+                    if (items[i].name != SULFURAS)
                     {
-                        if (items[i].name != SULFURAS)
-                        {
-                            items[i].quality = items[i].quality - 1;
-                        }
+                        decreaseQuality(items[i]);
                     }
                 }
                 else
                 {
-                    items[i].quality = items[i].quality - items[i].quality;
+                    items[i].quality = 0;
                 }
             }
             else
             {
-                if (items[i].quality < 50)
-                {
-                    items[i].quality = items[i].quality + 1;
-                }
+                increaseQuality(items[i]);
             }
         }
     }
