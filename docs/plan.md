@@ -5,7 +5,7 @@
 ## 현황
 
 - `gilded_rose.cpp`의 `updateQuality()`는 깊은 중첩 if-else 단일 메서드로 구현됨
-- 기존 테스트(`gilded_rose_test.cpp`) 12개가 `gilded_rose.cpp` 100% 커버 중
+- 기존 테스트(`gilded_rose_test.cpp`) 15개가 `gilded_rose.cpp` 100% 커버 중
 - 별도 유닛 테스트 추가 없이 기존 테스트를 안전망으로 사용
 
 ---
@@ -42,13 +42,13 @@ static const std::string BACKSTAGE_PASS  = "Backstage passes to a TAFKAL80ETC co
 
 ### Phase 2 — Quality 경계 처리 헬퍼 추출
 
-**변경 범위:** `GildedRose` 클래스에 private 메서드 추가
+**변경 범위:** `gilded_rose.cpp` 파일 스코프 `static` 함수 추가
 
 quality 증감 시 0~50 범위를 매번 직접 확인하는 코드를 헬퍼로 일원화한다.
 
 ```cpp
-void increaseQuality(Item& item, int amount = 1);
-void decreaseQuality(Item& item, int amount = 1);
+static void increaseQuality(Item& item, int amount = 1);
+static void decreaseQuality(Item& item, int amount = 1);
 ```
 
 - 범위 체크 로직 중복 제거
@@ -58,13 +58,13 @@ void decreaseQuality(Item& item, int amount = 1);
 
 ### Phase 3 — 아이템 타입별 private 메서드 추출
 
-**변경 범위:** `updateQuality()` 분해 → 4개의 private 메서드
+**변경 범위:** `updateQuality()` 분해 → 4개의 파일 스코프 `static` 함수
 
 ```cpp
-void updateNormalItem(Item& item);
-void updateAgedBrie(Item& item);
-void updateSulfuras(Item& item);
-void updateBackstagePass(Item& item);
+static void updateNormalItem(Item& item);
+static void updateAgedBrie(Item& item);
+static void updateSulfuras(Item& item);
+static void updateBackstagePass(Item& item);
 ```
 
 `updateQuality()`는 아이템 이름으로 분기하여 각 메서드를 호출하는 디스패처로만 남긴다.  
