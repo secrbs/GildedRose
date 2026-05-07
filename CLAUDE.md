@@ -59,33 +59,19 @@ OpenCppCoverage.exe --sources cpp\*.cpp --export_type=html:Coverage -- .\x64\Deb
 
 1. **개발 목표 설정** — 작업 범위와 목표를 명확히 정의
 2. **플랜 작성** — `docs/plan.md`에 Phase별 계획 작성
-3. **CLAUDE.md 반영** — 진행 중인 플랜 내용을 CLAUDE.md에 추가
+3. **CLAUDE.md 반영** — 진행 중인 플랜 파일 경로를 CLAUDE.md `진행 대상 플랜` 항목에 추가
 4. **각 Phase 작업** — 아래 Phase 작업 절차에 따라 진행
-5. **개발 완료 확인** — 사람이 완료를 확인하면 CLAUDE.md에서 플랜 반영 내용 제거
+5. **개발 완료 확인** — 사람이 완료를 확인하면 CLAUDE.md `진행 대상 플랜` 항목에서 해당 경로 제거
 6. **커밋 작성**
 
 ### Phase 작업 절차
 
 각 Phase는 반드시 아래 순서를 따른다.
 
-1. **Design 문서 작성** — `docs/phase{N}-design.md`에 변경 내용, 인터페이스, 예상 결과 기술
+1. **Design 문서 작성** — `docs/design/phase{N}.md`에 변경 내용, 인터페이스, 예상 결과 기술
 2. **사람이 Design 검토** — 검토 완료 후 구현 진행
 3. **구현** — Design 문서 기준으로 코드 작성, 빌드·테스트·커버리지 확인 후 커밋
 4. **사람이 코드 검토** — 검토 완료 후 다음 Phase로 이동
-
----
-
-## 진행 중인 플랜
-
-`docs/plan.md` — C++ `gilded_rose.cpp` 리팩토링 (5 Phase)
-
-| Phase | 내용 | 상태 |
-|-------|------|------|
-| 1 | 매직 스트링 상수화 | 대기 |
-| 2 | Quality 경계 처리 헬퍼 추출 | 대기 |
-| 3 | 아이템 타입별 private 메서드 추출 | 대기 |
-| 4 | 분기 디스패치를 (predicate, updater) 테이블로 교체 | 대기 |
-| 5 | Conjured 아이템 지원 추가 | 대기 |
 
 ---
 

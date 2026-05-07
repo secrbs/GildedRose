@@ -12,7 +12,7 @@
 
 각 Phase는 아래 순서를 반드시 따른다.
 
-1. **Design 문서 작성** — `docs/phase{N}-design.md`에 변경 내용, 인터페이스, 예상 결과 기술
+1. **Design 문서 작성** — `docs/design/phase{N}.md`에 변경 내용, 인터페이스, 예상 결과 기술
 2. **사람이 Design 검토** — 검토 완료 후 구현 진행
 3. **구현** — Design 문서 기준으로 코드 작성, 빌드·테스트·커버리지 확인 후 커밋
 4. **사람이 코드 검토** — 검토 완료 후 다음 Phase로 이동
@@ -70,29 +70,10 @@ void updateBackstagePass(Item& item);
 
 ---
 
-### Phase 4 — 분기 디스패치를 (predicate, updater) 테이블로 교체
+### Phase 4, 5 — 미진행 (Phase 3에서 마무리)
 
-**변경 범위:** `updateQuality()` 내부 if-else 체인 → `std::vector<pair<Predicate, Updater>>`
-
-이름 문자열을 키로 쓰는 맵 대신, 술어(predicate)와 업데이터를 묶은 목록을 사용한다.  
-일반 아이템도 명시적인 술어(`true`)로 등록하여 모든 항목을 동등하게 취급한다.
-
-```cpp
-using Updater   = std::function<void(Item&)>;
-using Predicate = std::function<bool(const Item&)>;
-
-const std::vector<std::pair<Predicate, Updater>> updaters = {
-    { [](const Item& i){ return i.name == SULFURAS;       }, [this](Item& i){ updateSulfuras(i);      } },
-    { [](const Item& i){ return i.name == AGED_BRIE;      }, [this](Item& i){ updateAgedBrie(i);      } },
-    { [](const Item& i){ return i.name == BACKSTAGE_PASS; }, [this](Item& i){ updateBackstagePass(i); } },
-    { [](const Item& i){ return true;                     }, [this](Item& i){ updateNormalItem(i);    } },
-};
-// 순서대로 predicate를 평가하여 처음 일치하는 updater 호출
-```
-
-- 일반 아이템이 "나머지 처리(fallback)"가 아닌 명시적 규칙으로 등록됨
-- 새 아이템 종류(예: Conjured) 추가 시 목록에 항목 삽입만 하면 됨
-- `Item` 클래스를 수정하지 않으면서 확장에 열린 구조 확보
+Phase 3 완료 후 if-else dispatcher가 충분히 단순하고 명확하다고 판단하여,  
+predicate 테이블 교체(Phase 4) 및 Conjured 아이템 추가(Phase 5)는 진행하지 않음.
 
 ---
 
