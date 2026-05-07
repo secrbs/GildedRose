@@ -42,6 +42,17 @@ Visual Studio 솔루션(`GildedRose.sln`)을 사용하여 빌드합니다.
 - Debug 빌드: Google Mock 기반 테스트 실행 (`main.cpp`의 `#ifdef _DEBUG` 분기)
 - Release 빌드: 텍스트 픽스처 출력 실행
 
+```bash
+# 빌드 (프로젝트 루트에서)
+MSBuild.exe GildedRose.sln /p:Configuration=Debug
+
+# 테스트 실행
+.\x64\Debug\GildedRose.exe
+
+# 커버리지 측정 (결과는 .\Coverage\index.html 에서 확인)
+OpenCppCoverage.exe --sources cpp\*.cpp --export_type=html:Coverage -- .\x64\Debug\GildedRose.exe
+```
+
 ## 아키텍처
 
 세 언어 모두 동일한 구조를 가집니다:
